@@ -12,6 +12,7 @@ from models_registry import (
     is_model_available, GENDER_ENCODING, METRICS,
 )
 from shap_explainer import explain_instance
+from recommendation_engine import generate_recommendations
 
 st.set_page_config(page_title="AgeWise — Sleep Disorder Risk", layout="wide")
 
@@ -256,6 +257,43 @@ with tab_predict:
                     f"**{FEATURE_LABELS.get(d['feature'], d['feature'])}** "
                     f"= {d['value']}  →  SHAP {d['shap_value']:+.4f}"
                 )
+
+        # --------------------------------------------------
+        # Personalized Recommendations — SHAP-driven, built on
+        # top of the same explanation shown above. Always uses
+        # the RF model, same as the SHAP section (recommendation_engine
+        # calls explain_instance() internally).
+        # --------------------------------------------------
+        st.markdown("### Personalized Recommendations")
+
+        try:
+            rec = generate_recommendations(disorder, cohort, input_dict, top_n=5)
+        except Exception as e:
+            st.error(f"Recommendation generation failed: {e}")
+            rec = None
+
+        if rec:
+            if rec["risk_increasing"]:
+                st.markdown("#### 🔴 Factors contributing to risk")
+                for item in rec["risk_increasing"]:
+                    st.markdown(f"- {item['message']}")
+            else:
+                st.success(
+                    "No modifiable factors were found pushing risk upward "
+                    "for this prediction."
+                )
+
+            if rec["protective"]:
+                st.markdown("#### 🟢 Factors working in your favor")
+                for item in rec["protective"]:
+                    st.markdown(f"- {item['message']}")
+
+            if rec["non_modifiable"]:
+                with st.expander("ℹ️ Non-modifiable contributing factors"):
+                    for item in rec["non_modifiable"]:
+                        st.markdown(f"- {item['message']}")
+
+            st.caption(rec["disclaimer"])
 
 
 # ==================================================
