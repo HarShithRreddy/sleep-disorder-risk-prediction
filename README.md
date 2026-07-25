@@ -18,7 +18,7 @@ The project is built as a direct response to identified gaps in an existing base
 
 | Role | Name | SRN |
 |---|---|---|
-| Author | Harshith | PES2UG24CS188 |
+| Author | Harshith R Reddy | PES2UG24CS188 |
 | Author | Aaryesh Karamsetty | PES2UG24CS215 |
 | Guide | Rudy Dinakar J | — |
 | Centre Head | Dr. Sandesh B J | — |
