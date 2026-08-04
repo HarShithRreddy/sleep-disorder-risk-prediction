@@ -20,7 +20,7 @@ The project is built as a direct response to identified gaps in an existing base
 |---|---|---|
 | Author | Harshith R Reddy | PES2UG24CS188 |
 | Author | Aaryesh Karamsetty | PES2UG24CS215 |
-| Guide | Rudy Dinakar J | — |
+| Guide | Ruby Dinakar J | — |
 | Centre Head | Dr. Sandesh B J | — |
 
 **Institution:** CoDMAV Lab, PES University, EC Campus, Bengaluru
